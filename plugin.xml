@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--命名空间（可添加）、id（域名反转的格式）、版本-->
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-ths-baidulocation"
+        version="1.0.0">
+    <!--插件名称-->
+    <name>BaiduLocation</name>
+    <!--描述-->
+    <description>Baidu Location Plugin</description>
+    <license>Apache 2.0</license>
+    <!--关键字-->
+    <keywords>cordova,baidulocation</keywords>
+
+    <!--插件支持的Cordova版本-->
+    <engines>
+        <engine name="cordova-android" version=">=4.0.0-dev"/>
+    </engines>
+   <!-- <dependency id="cordova-plugin-compat" version="^1.1.0" />-->
+	<preference name="BD_AK" />
+    <js-module src="www/baidulocation.js" name="baidulocation"> <!-- src:js文件所在路径（相对于plugin.xml）-->
+        <clobbers target="navigator.baidulocation"/>
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BaiduLocation">
+                <param name="android-package" value="cn.com.ths.baidulocation.BaiduLocation"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/BaiduLocation.java" target-dir="src/cn/com/ths/baidulocation"/>
+        <source-file src="src/android/NotificationUtils.java" target-dir="src/cn/com/ths/baidulocation"/>
+        <source-file src="src/android/libs/BaiduLBS_Android.jar" target-dir="libs" framework="true"/>
+        <source-file src="src/android/libs/arm64-v8a/liblocSDK8a.so" target-dir="libs/arm64-v8a" framework="true"/>
+        <source-file src="src/android/libs/arm64-v8a/libindoor.so" target-dir="libs/arm64-v8a" framework="true"/>
+        <source-file src="src/android/libs/armeabi/liblocSDK8a.so" target-dir="libs/armeabi" framework="true"/>
+        <source-file src="src/android/libs/armeabi/libindoor.so" target-dir="libs/armeabi" framework="true"/>
+        <source-file src="src/android/libs/armeabi-v7a/liblocSDK8a.so" target-dir="libs/armeabi-v7a" framework="true"/>
+        <source-file src="src/android/libs/armeabi-v7a/libindoor.so" target-dir="libs/armeabi-v7a" framework="true"/>
+        <source-file src="src/android/libs/x86/liblocSDK8a.so" target-dir="libs/x86" framework="true"/>
+        <source-file src="src/android/libs/x86/libindoor.so" target-dir="libs/x86" framework="true"/>
+        <source-file src="src/android/libs/x86_64/liblocSDK8a.so" target-dir="libs/x86_64" framework="true"/>
+        <source-file src="src/android/libs/x86_64/libindoor.so" target-dir="libs/x86_64" framework="true"/>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <!-- 这个权限用于进行网络定位-->
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+            <!-- 这个权限用于访问GPS定位-->
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+            <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+            <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+            <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+            <!-- 用于读取手机当前的状态-->
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+            <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+            <!-- 访问网络，网络定位需要上网-->
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <!-- SD卡读取权限，用户写入离线定位数据-->
+            <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+            <!-- android 9.0上使用前台服务，需要添加权限 -->
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+            <!--在Android10.0系统上，当应用退到后台后为了保留对设备位置信息的访问权-->
+            <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+            
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"></service>
+            <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="$BD_AK"/>
+			<!--SCIesBIXCBWPlmf3QIu0WUyh5gUGAZte -->
+        </config-file>
+    </platform>
+</plugin>

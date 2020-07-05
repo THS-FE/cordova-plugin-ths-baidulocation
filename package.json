@@ -1,0 +1,33 @@
+{
+  "name": "cordova-plugin-ths-baidulocation",
+  "version": "1.0.2",
+  "description": "百度定位插件",
+  "cordova": {
+    "id": "cordova-plugin-ths-baidulocation",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "baidulocation",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/THS-FE/cordova-plugin-ths-baidulocation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/THS-FE/cordova-plugin-ths-baidulocation/issues"
+  },
+  "homepage": "https://github.com/THS-FE/cordova-plugin-ths-baidulocation#readme",
+  "engines": [
+    {
+      "name": "cordova-android",
+      "version": ">=4.0.0-dev"
+    }
+  ],
+  "author": "liuyx",
+  "license": "Apache 2.0"
+}
