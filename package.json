@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-ths-baidulocation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "百度定位插件",
   "cordova": {
     "id": "cordova-plugin-ths-baidulocation",

@@ -31,8 +31,8 @@ import com.baidu.location.LocationClientOption;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.ths.baidulocation.test.MainActivity;
-import cn.com.ths.baidulocation.test.R;
+// import cn.com.ths.baidulocation.test.MainActivity;
+// import cn.com.ths.baidulocation.test.R;
 
 /**
  * 百度定位插件，默认使用gcj02定位.
