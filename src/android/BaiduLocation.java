@@ -240,7 +240,7 @@ public class BaiduLocation extends CordovaPlugin {
 		if (Build.VERSION.SDK_INT >= 26) {
 			mNotificationUtils = new NotificationUtils(cordova.getActivity());
 			Notification.Builder builder2 = mNotificationUtils.getAndroidChannelNotification
-					("温馨提示", "正在后台定位");
+					("提示", "正在运行");
 			notification = builder2.build();
 		} else {
 			//获取一个Notification构造器
@@ -249,9 +249,9 @@ public class BaiduLocation extends CordovaPlugin {
 
 			builder.setContentIntent(PendingIntent.
 					getActivity(cordova.getActivity(), 0, nfIntent, 0)) // 设置PendingIntent
-					.setContentTitle("温馨提示") // 设置下拉列表里的标题
+					.setContentTitle("提示") // 设置下拉列表里的标题
 					//.setSmallIcon(R.drawable.ic_launcher) // 设置状态栏内的小图标
-					.setContentText("正在后台定位") // 设置上下文内容
+					.setContentText("正在运行") // 设置上下文内容
 					.setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
 
 			notification = builder.build(); // 获取构建好的Notification
