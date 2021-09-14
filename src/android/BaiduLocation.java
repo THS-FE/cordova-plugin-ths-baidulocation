@@ -9,7 +9,6 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.Notification;
@@ -22,12 +21,10 @@ import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
-
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-
 import java.util.ArrayList;
 import java.util.List;
 
