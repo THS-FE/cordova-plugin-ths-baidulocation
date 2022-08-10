@@ -324,7 +324,10 @@ public class BaiduLocation extends CordovaPlugin {
 					callbackContextList.get(callbackContextList.size()-1).callbackContext.error(e.toString());
 				}
 				// callbackContext.error(e.toString());
-			}
+			} catch (Exception e){
+                e.printStackTrace();
+                callbackContext.error(e.toString());
+            }
 		}
 	}
 
