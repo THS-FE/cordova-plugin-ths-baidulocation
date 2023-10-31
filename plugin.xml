@@ -36,16 +36,12 @@
 		<source-file src="src/android/BaiduLocation.java" target-dir="src/cn/com/ths/baidulocation" />
 		<source-file src="src/android/NotificationUtils.java" target-dir="src/cn/com/ths/baidulocation" />
 		<source-file src="src/android/libs/BaiduLBS_Android.jar" target-dir="libs" framework="true" />
-		<source-file src="src/android/libs/arm64-v8a/liblocSDK8a.so" target-dir="libs/arm64-v8a" framework="true" />
+		<source-file src="src/android/libs/arm64-v8a/liblocSDK8b.so" target-dir="libs/arm64-v8a" framework="true" />
 		<source-file src="src/android/libs/arm64-v8a/libindoor.so" target-dir="libs/arm64-v8a" framework="true" />
-		<source-file src="src/android/libs/armeabi/liblocSDK8a.so" target-dir="libs/armeabi" framework="true" />
-		<source-file src="src/android/libs/armeabi/libindoor.so" target-dir="libs/armeabi" framework="true" />
-		<source-file src="src/android/libs/armeabi-v7a/liblocSDK8a.so" target-dir="libs/armeabi-v7a" framework="true" />
+		<source-file src="src/android/libs/armeabi-v7a/liblocSDK8b.so" target-dir="libs/armeabi-v7a" framework="true" />
 		<source-file src="src/android/libs/armeabi-v7a/libindoor.so" target-dir="libs/armeabi-v7a" framework="true" />
-		<source-file src="src/android/libs/x86/liblocSDK8a.so" target-dir="libs/x86" framework="true" />
-		<source-file src="src/android/libs/x86/libindoor.so" target-dir="libs/x86" framework="true" />
-		<source-file src="src/android/libs/x86_64/liblocSDK8a.so" target-dir="libs/x86_64" framework="true" />
-		<source-file src="src/android/libs/x86_64/libindoor.so" target-dir="libs/x86_64" framework="true" />
+		<source-file src="src/android/libs/x86/liblocSDK8b.so" target-dir="libs/x86" framework="true" />
+		<source-file src="src/android/libs/x86_64/liblocSDK8b.so" target-dir="libs/x86_64" framework="true" />
 		<config-file target="AndroidManifest.xml" parent="/*">
 			<!-- 这个权限用于进行网络定位 -->
 			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">

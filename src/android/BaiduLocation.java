@@ -58,7 +58,7 @@ public class BaiduLocation extends CordovaPlugin {
 	 */
 	private String[] locPerArr = new String[] {
 			Manifest.permission.READ_PHONE_STATE,
-
+			Manifest.permission.ACCESS_COARSE_LOCATION,
 			Manifest.permission.ACCESS_FINE_LOCATION,
 			Manifest.permission.READ_EXTERNAL_STORAGE
 	};
@@ -69,8 +69,13 @@ public class BaiduLocation extends CordovaPlugin {
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		activity = cordova.getActivity();
+		LocationClient.setAgreePrivacy(true);
 		initGPS();
-		mLocationClient = new LocationClient(activity); // 声明LocationClient类
+		try {
+			mLocationClient = new LocationClient(activity); // 声明LocationClient类
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		mLocationClient.registerLocationListener(myListener); // 注册监听函数
 		initLocation();
 	}
@@ -90,6 +95,7 @@ public class BaiduLocation extends CordovaPlugin {
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 			for (int i = 0, len = locPerArr.length; i < len; i++) {
 				if (!PermissionHelper.hasPermission(this, locPerArr[i])) {
+					Log.e("promtForLocation","申请权限"+ locPerArr[i]);
 					PermissionHelper.requestPermission(this, i, locPerArr[i]);
 					return;
 				}
@@ -324,10 +330,7 @@ public class BaiduLocation extends CordovaPlugin {
 					callbackContextList.get(callbackContextList.size()-1).callbackContext.error(e.toString());
 				}
 				// callbackContext.error(e.toString());
-			} catch (Exception e){
-                e.printStackTrace();
-                callbackContext.error(e.toString());
-            }
+			}
 		}
 	}
 
