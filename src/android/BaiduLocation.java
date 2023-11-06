@@ -25,6 +25,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -316,10 +317,18 @@ public class BaiduLocation extends CordovaPlugin {
 				// callbackContext.success(locationInfo); // 每调用一次，该方法前端只能执行一次
 				PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, locationInfo);
 				pluginResult.setKeepCallback(true);
-				for (ActionModel actionModel: callbackContextList){
+				// for (ActionModel actionModel: callbackContextList){
+				// 	actionModel.callbackContext.sendPluginResult(pluginResult);
+				// 	if(actionModel.isSingle){ // 如果时单次定位，移除该回调
+				// 		callbackContextList.remove(actionModel);
+				// 	}
+				// }
+				Iterator<ActionModel> it_b=callbackContextList.iterator();
+				while(it_b.hasNext()){
+					ActionModel actionModel=it_b.next();
 					actionModel.callbackContext.sendPluginResult(pluginResult);
-					if(actionModel.isSingle){ // 如果时单次定位，移除该回调
-						callbackContextList.remove(actionModel);
+					if (actionModel.isSingle) {
+						it_b.remove();
 					}
 				}
 				// 发送位置数据变更
