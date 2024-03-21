@@ -94,7 +94,10 @@ public class BaiduLocation extends CordovaPlugin {
 	 */
 	private void promtForLocation() {
 		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-			for (int i = 0, len = locPerArr.length; i < len; i++) {
+			for (int i = 0, len = locPerArr.length; i < len; i++) { //兼容下Android 13以上部分手机
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU&&locPerArr[i].equals(Manifest.permission.READ_EXTERNAL_STORAGE)){
+					continue;
+				}
 				if (!PermissionHelper.hasPermission(this, locPerArr[i])) {
 					Log.e("promtForLocation","申请权限"+ locPerArr[i]);
 					PermissionHelper.requestPermission(this, i, locPerArr[i]);
