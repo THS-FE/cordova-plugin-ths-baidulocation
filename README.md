@@ -1,80 +1,115 @@
 # cordova-plugin-ths-baidulocation
 
-基于百度定位SDK的Cordova插件
+百度定位Cordova插件，支持Android平台。本插件基于百度定位SDK，提供了获取位置信息、停止定位以及配置定位参数等功能。
+
+## 安装
+
+```bash
+cordova plugin add cordova-plugin-ths-baidulocation --variable BD_AK=你的百度地图AK密钥
+```
+
+或者通过git地址安装：
+
+```bash
+cordova plugin add https://github.com/THS-FE/cordova-plugin-ths-baidulocation.git --variable BD_AK=你的百度地图AK密钥
+```
 
 ## 支持平台
 
-Android
+- Android 4.0.0 及以上版本
 
-## 安装插件
+## API说明
 
-```bash
-# 通过npm 安装插件
-cordova plugin add cordova-plugin-ths-baidulocation  --variable BD_AK=keyvalue
-# 通过github安装
-cordova plugin add https://github.com/THS-FE/cordova-plugin-ths-baidulocation  --variable BD_AK=keyvalue
-# 通过本地文件路径安装
-cordova plugin add 文件路径  --variable BD_AK=keyvalue
-# keyvalue 为在百度地图开放平台上注册的百度安卓定位SDK 
+### 获取位置信息
+
+```javascript
+navigator.baidulocation.get(successCallback, errorCallback, isSingle)
 ```
 
-[BD_AK申请](http://lbsyun.baidu.com/index.php?title=android-locsdk/guide/create-project/key)
+#### 参数说明
+- `successCallback`: 成功获取数据的回调函数
+- `errorCallback`: 失败回调函数
+- `isSingle`: 是否单次定位，可选参数，默认为true
+  - `true`: 单次定位
+  - `false`: 连续定位
 
-**说明： ionic 项目命令前加上ionic，即ionic cordova plugin xxxxx**
-
-## 使用方法
-
-配置定位参数
-
-```typescript
-  /**
-   * 配置请求定位参数，该方法配置后，会起到全局效果，所有的请求操作都将生效.不设置，将使用默认值进行定位
-   * @param {String} mCoorType 请求坐标类型 可选 默认gcj02
-   */
-navigator.baidulocation.config('bd09ll');
+#### 返回数据示例
+```javascript
+{
+    "time": "2023-xx-xx xx:xx:xx",    // 定位时间
+    "locType": 61,                    // 定位类型
+    "latitude": 39.xxx,              // 纬度
+    "longitude": 116.xxx,            // 经度
+    "radius": 30.0,                  // 精度半径
+    "coorType": "gcj02",            // 坐标系类型
+    "addr": "xxx路xxx号",            // 地址信息
+    "province": "xxx省",            // 省份
+    "city": "xxx市",                // 城市
+    "district": "xxx区",            // 区县
+    "street": "xxx路"               // 街道
+}
 ```
 
-开启定位
+### 停止定位
 
-```typescript
-    /**
-     * 获取位置信息
-     * @param {Function} successCallback 成功获取数据回调
-     * @param {Function} errorCallback 失败回调 
-     * @param {boolean} isSingle 是否单次返回数据 可选 默认 true，只返回一次数据，false successCallback方法将持续收到位置数据，适合轨迹类持续收集位置信息场景开发
-     */
-navigator.baidulocation.get((res) => {
-      console.log('tab1', res);
-    }, (err) => {
-      alert(err);
-}, false);
+```javascript
+navigator.baidulocation.stop()
 ```
 
-停止定位
+在执行完get操作后，定位服务会持续在后台运行，可以通过此方法停止定位服务。
 
-```typescript
-    /**
-     * 在执行完get 操作后，理论上定位服务会持续后台定位，该操作可停止所有定位请求，包括正在持续获取位置的请求
-     */
+### 配置定位参数
+
+```javascript
+navigator.baidulocation.config(mCoorType, mSpan)
+```
+
+#### 参数说明
+- `mCoorType`: 请求的坐标系类型，可选参数，默认为"gcj02"
+  - `gcj02`: 国测局坐标系
+  - `bd09`: 百度墨卡托坐标系
+  - `bd09ll`: 百度经纬度坐标系
+- `mSpan`: 位置数据回调时间间隔，单位毫秒，可选参数，默认为1000
+
+## 注意事项
+
+1. 使用本插件前，需要先申请百度地图API密钥（AK）
+2. Android 6.0及以上版本需要动态申请定位权限
+3. 插件会自动处理Android后台定位，无需额外配置
+4. 建议在设备就绪后再调用定位相关接口
+
+## 示例代码
+
+```javascript
+// 单次定位
+navigator.baidulocation.get(
+    function(location) {
+        console.log('定位成功：', location);
+    },
+    function(error) {
+        console.error('定位失败：', error);
+    },
+    true
+);
+
+// 连续定位
+navigator.baidulocation.get(
+    function(location) {
+        console.log('持续定位：', location);
+    },
+    function(error) {
+        console.error('定位失败：', error);
+    },
+    false
+);
+
+// 配置定位参数
+navigator.baidulocation.config('bd09ll', 2000);
+
+// 停止定位
 navigator.baidulocation.stop();
 ```
 
+## 许可证
 
-
-
-
-**说明：使用ts 进行开发时，需要在文件上变声明下declare const navigator，不然会报错;**
-
-```typescript
-import { Component, OnInit, Input } from '@angular/core';
-import { WebIntent } from '@ionic-native/web-intent/ngx';
-declare const navigator;
-@Component({
-  selector: 'app-explore-container',
-  templateUrl: './explore-container.component.html',
-  styleUrls: ['./explore-container.component.scss'],
-})
-```
-
-## 常见错误
-
+Apache License 2.0
