@@ -111,17 +111,32 @@ public class BaiduLocation extends CordovaPlugin {
 
 	}
 
+	// @Override
+	// public void onRequestPermissionResult(int requestCode,
+	// 		String[] permissions, int[] grantResults) throws JSONException {
+	// 	// TODO Auto-generated method stub
+	// 	for (int r : grantResults) {
+	// 		if (r == PackageManager.PERMISSION_DENIED) {
+	// 			return;
+	// 		}
+	// 	}
+	// 	promtForLocation();
+	// }
 	@Override
-	public void onRequestPermissionResult(int requestCode,
-			String[] permissions, int[] grantResults) throws JSONException {
-		// TODO Auto-generated method stub
-		for (int r : grantResults) {
-			if (r == PackageManager.PERMISSION_DENIED) {
-				return;
-			}
+    public void onRequestPermissionResult(int requestCode,
+									  String[] permissions, int[] grantResults) throws JSONException {
+	// TODO Auto-generated method stub
+	  for (int r : grantResults) {
+		if (r == PackageManager.PERMISSION_DENIED) {
+			// 可以考虑在这里给用户一些提示，例如权限被拒绝，功能可能无法正常使用
+			//Log.e("onRequestPermissionResult", "权限被拒绝: " + permissions.toString());
+			callbackContext.error("定位权限被拒绝，功能无法使用"); // 通知前端权限被拒绝
+			return;
 		}
-		promtForLocation();
-	}
+	  }
+	// 如果所有权限都被授权，直接执行定位操作，不再重复调用 promtForLocation
+	  exeLoc(action);
+    }
 
 	/**
 	 * 执行定位操作
